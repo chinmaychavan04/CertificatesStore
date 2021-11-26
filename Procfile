@@ -1,0 +1,1 @@
+web: gunicorn myProfile.wsgi --log-file -
