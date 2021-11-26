@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="container mb-3">
+    <form class="d-flex mt-3" method="get" action="/search_list">
+        <input class="form-control me-2" type="search" name="slist" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-dark" type="submit">Search</button>
+    </form>
+</div>
+{% if object %}
+<h4 class="text-center mb-4">Search Result for "<span class="text-muted">{{query}}</span>"</h4>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">No.</th>
+            <th scope="col">Title</th>
+            <th scope="col">Field</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for post in object %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{post.title}}</td>
+            <td>{{post.fields}}</td>
+            <td><a href="{{post.files.url}}" target="_blank" class="btn btn-success">View</a></td>
+
+            {% if request.user.is_staff %}
+            <td><a href="{% url 'delete' post.id%}" class="btn btn-danger">Delete</a></td>
+            {% endif %}
+
+        </tr>
+        {% endfor %}
+
+        {% else %}
+
+        <div class="card card-body w-75 mx-auto">
+            <h4 class="text-center">Search Result for "<span class="text-muted">{{query}}</span>" Not Found</h4>
+        </div>
+
+        {% endif %}
+        {% endblock %}

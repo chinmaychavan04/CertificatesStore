@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+
+<body>
+
+    {% block content %}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+
+        .navbar .nav-item {
+            padding: 10px 20px;
+        }
+
+        .navbar .nav-link {
+            font-size: 20px;
+            margin-left: 10px;
+        }
+
+
+
+        .card {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 300px;
+            width: 300px;
+            border-radius: 25px;
+            background-color: #ffffff;
+            box-shadow: 10px 0 50px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        @media (max-width:571px) {
+            .card {
+                margin-left: 25px;
+                margin-bottom: 25px;
+            }
+        }
+
+        .card:nth-child(1) {
+            margin-right: 30px;
+        }
+
+
+        h2 {
+            position: absolute;
+            left: 0;
+            top: 0;
+            margin: 20px 0 0 6px;
+            font-size: 44px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 15px;
+            color: #ffffff;
+            mix-blend-mode: difference;
+        }
+
+        p {
+            position: absolute;
+            left: 0;
+            margin: 0 20px 0px 22px;
+            font-size: 18px;
+            color: #ffffff;
+            mix-blend-mode: difference;
+        }
+
+        #circle {
+            height: 100%;
+            width: 100%;
+            border-radius: 50%;
+            background-color: #000000;
+            margin-top: -330px;
+            margin-left: 200px;
+        }
+
+        #triangle {
+            height: 100%;
+            width: 100%;
+            background-color: #000000;
+            border-radius: 20px;
+            transform: rotate(70deg);
+            margin-top: -430px;
+            margin-left: 200px;
+        }
+
+        .content a {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            margin: 0 20px 20px 0;
+            cursor: pointer;
+            text-decoration: none;
+            background-color: #000000;
+            color: #ffffff;
+            font-size: 28px;
+            padding: 5px 10px 5px 10px;
+            border-radius: 30px;
+            box-shadow: 10px 0 50px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+    {% if obj %}
+    <div class="row mb-5">
+        {% for obj in obj %}
+        {% if forloop.counter|divisibleby:2 %}
+        <div class="col-lg-4 ">
+            <div class="card ">
+                <div id="circle"></div>
+                <h2>{{obj.title}}</h2>
+                <p>{{obj.fields}}
+                </p>
+                <div class="content">
+                    <a href="{{obj.files.url}}" target="_blank">View</a>
+                </div>
+            </div>
+        </div>
+
+        {% else %}
+        <div class="col-lg-4">
+            <div class="card">
+                <div id="triangle"></div>
+                <h2>{{obj.title}}</h2>
+                <p>{{obj.fields}}
+                </p>
+                <div class="content">
+                    <a href="{{obj.files.url}}" target="_blank">View</a>
+                </div>
+            </div>
+        </div>
+
+        {% endif %}
+        {% endfor %}
+
+
+    </div>
+
+    {% else %}
+    <div class="card card-body w-75 mx-auto">
+        <h4 class="text-center">No Results Found On This Catagory</h4>
+    </div>
+
+    {% endif %}
+    {% endblock content %}
+</body>
